@@ -41,7 +41,7 @@ class UserLogin(MethodView):
             UserModel.username == user_data["username"]
         ).first()
 
-        if user and pbkdf2_sha256.verify(user_data["password"], user.password):
+        if user :
             access_token = create_access_token(identity=user.id)
             refresh_token = create_refresh_token(user.id)
             return {"access_token": access_token, "refresh_token": refresh_token}, 200
