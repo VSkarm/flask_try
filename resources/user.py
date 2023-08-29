@@ -7,7 +7,6 @@ from flask_jwt_extended import (
     get_jwt,
     jwt_required
 )
-from passlib.hash import pbkdf2_sha256
 
 from db import db
 from models import UserModel
@@ -27,7 +26,7 @@ class UserRegister(MethodView):
 
         user = UserModel(
             username=user_data["username"],
-            password=pbkdf2_sha256.hash(user_data["password"]),
+            password=user_data["password"],
         )
         db.session.add(user)
         db.session.commit()
